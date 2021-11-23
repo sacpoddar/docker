@@ -34,20 +34,25 @@ spec:
         tier: app
     spec:
       containers:
-        - name: "webtest"
-          image: "sachinpoddar/webtest:latest"
-          resources:
-            requests:
-              memory: "2G"
-              cpu: "2000m"
-          imagePullPolicy: "Never"
-          ports:
-            - name: web1
-              containerPort: 3000
-          env:
-            - name: TARGET_ENV
-              value: "local"
-            - name: INGRESS_HOSTNAME
-              value: "localhost"
+      - name: "webtest"
+        image: "sachinpoddar/webtest:latest"
+        # microk8s built-in registry
+        # image: "localhost:32000/webtest"
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "500m"
+          limits:
+            memory: "2G"
+            cpu: "1000m"
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - name: web1
+            containerPort: 3000
+        env:
+          - name: TARGET_ENV
+            value: "local"
+          - name: INGRESS_HOSTNAME
+            value: "localhost"
    
               
